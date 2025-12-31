@@ -93,10 +93,10 @@ def validate_toml_file(file_path: Path) -> bool:
         elif HAS_TOMLLIB:
             if "tomllib" in sys.modules:
                 import tomllib  # type: ignore[import-untyped]
-                tomllib.loads(content.encode("utf-8"))
+                tomllib.loads(content)  # tomllib.loads expects str, not bytes
             else:
                 import tomli  # type: ignore[import-untyped]
-                tomli.loads(content)
+                tomli.loads(content.encode("utf-8"))  # tomli.loads expects bytes
         return True
     except (SyntaxError, ValueError, UnicodeDecodeError):
         # Invalid TOML or encoding issue
@@ -153,10 +153,10 @@ def update_pyproject_toml(context: dict[str, str]) -> None:
             # Fallback: read with parser, write manually (less ideal but safer than regex)
             if "tomllib" in sys.modules:
                 import tomllib  # type: ignore[import-untyped]
-                data = tomllib.loads(content.encode("utf-8"))
+                data = tomllib.loads(content)  # tomllib.loads expects str, not bytes
             else:
                 import tomli  # type: ignore[import-untyped]
-                data = tomli.loads(content)
+                data = tomli.loads(content.encode("utf-8"))  # tomli.loads expects bytes
             
             # Remove dependencies
             if "tool" in data and "poetry" in data["tool"]:
@@ -285,10 +285,10 @@ def update_dynaconf_settings(context: dict[str, str]) -> None:
             # Fallback: read with parser, write manually
             if "tomllib" in sys.modules:
                 import tomllib  # type: ignore[import-untyped]
-                data = tomllib.loads(content.encode("utf-8"))
+                data = tomllib.loads(content)  # tomllib.loads expects str, not bytes
             else:
                 import tomli  # type: ignore[import-untyped]
-                data = tomli.loads(content)
+                data = tomli.loads(content.encode("utf-8"))  # tomli.loads expects bytes
             
             # Remove sections
             if not use_redis and "redis" in data:
