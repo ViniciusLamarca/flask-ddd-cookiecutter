@@ -4,7 +4,7 @@ import inspect
 from functools import wraps
 from typing import Any, Callable
 
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 from app.infrastructure.cache.redis_cache import get_cache
 
 import structlog

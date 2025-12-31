@@ -4,8 +4,8 @@
   "project_description": "A Flask application with DDD and Clean Architecture",
   "author_name": "Your Name",
   "author_email": "your.email@example.com",
-  "use_redis": "y",
-  "use_websocket": "y",
+  "include_redis": "y",
+  "include_websocket": "y",
   "python_version": "3.11"
 }
 

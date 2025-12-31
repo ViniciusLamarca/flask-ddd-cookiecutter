@@ -6,7 +6,7 @@ from typing import Any
 from flask import current_app
 
 from app.application.interfaces.cache import CacheInterface
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 from app.infrastructure.redis.client import redis_client
 
 import structlog

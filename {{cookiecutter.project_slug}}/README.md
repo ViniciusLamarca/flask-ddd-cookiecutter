@@ -54,11 +54,11 @@ app/
 - **Alpine.js**: Framework JavaScript leve e reativo
 - **Pre-commit**: Git hooks para qualidade de código
 - **EditorConfig**: Padronização entre editores
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 - **Redis**: Cache distribuído e message broker
 - **Sistema de Cache**: Interface abstrata com implementação Redis, incluindo decorators para cache automático
 {% endif %}
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 - **Flask-SocketIO**: WebSocket support para comunicação em tempo real
 - **Eventlet**: Servidor assíncrono para WebSocket
 {% endif %}
@@ -501,7 +501,7 @@ Implementações concretas de tecnologias externas:
 - **Database**: SQLAlchemy models e implementações de repositórios
 - **Config**: Configurações com Dynaconf
 - **Logging**: Setup de logging estruturado
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 - **Redis**: Cliente Redis para cache e message broker
 {% endif %}
 
@@ -532,7 +532,7 @@ SECRET_KEY=your-secret-key
 # SQL Server connection string
 # Format: mssql+pyodbc://username:password@server:port/database?driver=ODBC+Driver+17+for+SQL+Server
 DATABASE_URL=mssql+pyodbc://sa:YourPassword@localhost:1433/YourDatabase?driver=ODBC+Driver+17+for+SQL+Server
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=
@@ -564,7 +564,7 @@ logger.info("User created", user_id=123, email="user@example.com")
 
 Logs são formatados em JSON em produção e de forma legível em desenvolvimento.
 
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 ## 💾 Cache
 
 O projeto inclui um sistema de cache abstrato com implementação usando **Redis**, seguindo os princípios de Clean Architecture.
@@ -714,7 +714,7 @@ cache.clear("user:*")  # Limpa todas as chaves que começam com "cache:user:"
 
 {% endif %}
 
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 ## 🔌 WebSocket
 
 O projeto utiliza **Flask-SocketIO** para suporte a WebSocket, permitindo comunicação em tempo real entre cliente e servidor.

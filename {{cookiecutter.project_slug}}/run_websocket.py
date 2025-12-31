@@ -1,5 +1,5 @@
 """Run Flask application with WebSocket support."""
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 from app import create_app
 from app.infrastructure.websocket.socketio import get_socketio
 

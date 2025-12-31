@@ -18,10 +18,10 @@ pydantic-settings = "^2.1.0"
 structlog = "^24.1.0"
 dynaconf = "^3.2.4"
 click = "^8.1.7"
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 redis = "^5.0.1"
 {% endif %}
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 flask-socketio = "^5.3.6"
 python-socketio = "^5.10.0"
 eventlet = "^0.33.3"

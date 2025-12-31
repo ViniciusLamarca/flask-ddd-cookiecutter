@@ -8,10 +8,10 @@ from app.infrastructure.logging.setup import setup_logging
 from app.presentation.api.v1 import register_routes
 from app.presentation.middleware.error_handler import register_error_handlers
 
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 from app.infrastructure.redis.client import redis_client
 {% endif %}
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 from app.infrastructure.websocket.socketio import init_socketio, get_socketio
 from app.presentation.websocket.namespaces import register_namespaces
 from app.presentation.websocket.events import register_events
@@ -43,12 +43,12 @@ def create_app(config_name: str | None = None) -> Flask:
     # Initialize database
     db.init_app(app)
     
-    {% if cookiecutter.use_redis == "y" %}
+    {% if cookiecutter.include_redis == "y" %}
     # Initialize Redis
     redis_client.init_app(app)
     {% endif %}
     
-    {% if cookiecutter.use_websocket == "y" %}
+    {% if cookiecutter.include_websocket == "y" %}
     # Initialize WebSocket
     socketio = init_socketio(app)
     register_namespaces(socketio)

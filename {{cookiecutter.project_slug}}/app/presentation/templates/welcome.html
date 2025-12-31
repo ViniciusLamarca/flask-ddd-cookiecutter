@@ -57,7 +57,7 @@
                             <p>ORM com SQLAlchemy + Alembic</p>
                         </div>
                     </div>
-                    {% if cookiecutter.use_redis == "y" %}
+                    {% if cookiecutter.include_redis == "y" %}
                     <div class="feature enabled">
                         <span class="feature-icon">✓</span>
                         <div>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     {% endif %}
-                    {% if cookiecutter.use_websocket == "y" %}
+                    {% if cookiecutter.include_websocket == "y" %}
                     <div class="feature enabled">
                         <span class="feature-icon">✓</span>
                         <div>

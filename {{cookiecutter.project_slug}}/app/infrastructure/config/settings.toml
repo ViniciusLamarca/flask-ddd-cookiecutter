@@ -18,7 +18,7 @@ database_url = "mssql+pyodbc://sa:YourPassword@localhost:1433/TestDatabase?drive
 debug = false
 database_url = "@env DATABASE_URL"
 
-{% if cookiecutter.use_redis == "y" %}
+{% if cookiecutter.include_redis == "y" %}
 [redis]
 host = "@env REDIS_HOST"
 port = "@int @env REDIS_PORT"
@@ -27,7 +27,7 @@ db = 0
 decode_responses = true
 {% endif %}
 
-{% if cookiecutter.use_websocket == "y" %}
+{% if cookiecutter.include_websocket == "y" %}
 [socketio]
 cors_allowed_origins = "*"
 async_mode = "eventlet"

@@ -363,8 +363,8 @@ def copy_env_example() -> None:
 def main():
     """Main hook execution."""
     context = {
-        "use_redis": "{{ cookiecutter.use_redis }}",
-        "use_websocket": "{{ cookiecutter.use_websocket }}",
+        "use_redis": "{{ cookiecutter.include_redis }}",
+        "use_websocket": "{{ cookiecutter.include_websocket }}",
     }
     
     use_redis = context.get("use_redis", "y").lower() == "y"
