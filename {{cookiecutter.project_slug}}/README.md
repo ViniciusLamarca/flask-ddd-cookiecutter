@@ -529,9 +529,10 @@ Principais variáveis:
 FLASK_ENV=development
 FLASK_DEBUG=true
 SECRET_KEY=your-secret-key
-# SQL Server connection string
-# Format: mssql+pyodbc://username:password@server:port/database?driver=ODBC+Driver+17+for+SQL+Server
-DATABASE_URL=mssql+pyodbc://sa:YourPassword@localhost:1433/YourDatabase?driver=ODBC+Driver+17+for+SQL+Server
+# Database Configuration
+# If DATABASE_URL is not set or left empty, SQLite will be used automatically in development (sqlite:///local.db)
+# To use SQL Server, uncomment and configure the line below:
+# DATABASE_URL=mssql+pyodbc://sa:YourPassword@localhost:1433/YourDatabase?driver=ODBC+Driver+17+for+SQL+Server
 {% if cookiecutter.include_redis == "y" %}
 REDIS_HOST=localhost
 REDIS_PORT=6379
@@ -816,7 +817,7 @@ gunicorn --worker-class eventlet -w 1 --bind 0.0.0.0:5000 app:create_app
 
 ## 🗄️ Database
 
-O projeto utiliza **SQL Server** como banco de dados, utilizando **pyodbc** como driver.
+O projeto utiliza **SQL Server** como banco de dados padrão em produção, utilizando **pyodbc** como driver. Em desenvolvimento, se `DATABASE_URL` não estiver configurado, o sistema utilizará automaticamente **SQLite** como fallback (arquivo `local.db` na raiz do projeto).
 
 ### Pré-requisitos
 
@@ -826,7 +827,17 @@ O projeto utiliza **SQL Server** como banco de dados, utilizando **pyodbc** como
    - Linux: `sudo apt-get install unixodbc-dev` e instalar o driver ODBC
    - macOS: `brew install unixodbc` e instalar o driver ODBC
 
-### Configuração da Connection String
+### Configuração do Banco de Dados
+
+#### Desenvolvimento (SQLite - Padrão)
+
+Por padrão, em desenvolvimento, se a variável `DATABASE_URL` não estiver configurada no arquivo `.env`, o sistema utilizará automaticamente SQLite. O arquivo `local.db` será criado na raiz do projeto.
+
+Para usar SQLite (padrão), simplesmente não defina `DATABASE_URL` no `.env` ou deixe-a vazia.
+
+#### SQL Server (Produção/Desenvolvimento Avançado)
+
+Para usar SQL Server, configure a variável `DATABASE_URL` no arquivo `.env`:
 
 A connection string do SQL Server segue o formato:
 

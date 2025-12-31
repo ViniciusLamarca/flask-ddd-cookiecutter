@@ -7,6 +7,8 @@ database_url = "mssql+pyodbc://sa:YourPassword@localhost:1433/YourDatabase?drive
 
 [development]
 debug = true
+# If DATABASE_URL is not set, SQLite will be used automatically (sqlite:///local.db)
+# To use SQL Server, set DATABASE_URL in .env file
 database_url = "@env DATABASE_URL"
 
 [testing]
