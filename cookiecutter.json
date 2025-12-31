@@ -1,0 +1,11 @@
+{
+  "project_name": "My Flask Project",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
+  "project_description": "A Flask application with DDD and Clean Architecture",
+  "author_name": "Your Name",
+  "author_email": "your.email@example.com",
+  "use_redis": "y",
+  "use_websocket": "y",
+  "python_version": "3.11"
+}
+

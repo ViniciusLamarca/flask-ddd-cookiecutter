@@ -1,0 +1,16 @@
+{
+  "name": "{{ cookiecutter.project_slug }}",
+  "version": "0.1.0",
+  "description": "{{ cookiecutter.project_description }}",
+  "scripts": {
+    "build:css": "tailwindcss -i ./app/presentation/static/css/input.css -o ./app/presentation/static/css/output.css --minify",
+    "watch:css": "tailwindcss -i ./app/presentation/static/css/input.css -o ./app/presentation/static/css/output.css --watch",
+    "build": "npm run build:css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "alpinejs": "^3.13.5"
+  },
+  "dependencies": {}
+}
+

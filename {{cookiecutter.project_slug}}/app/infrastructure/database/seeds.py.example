@@ -1,0 +1,19 @@
+"""Database seed file example.
+
+Rename this file to seeds.py and implement the seed function.
+"""
+from app.infrastructure.database.session import db
+
+
+def seed() -> None:
+    """Seed the database with initial data."""
+    # Example seed implementation
+    # from app.infrastructure.database.models.your_model import YourModel
+    # 
+    # # Create initial data
+    # item = YourModel(name="Example")
+    # db.session.add(item)
+    # db.session.commit()
+    
+    print("Database seeded successfully")
+

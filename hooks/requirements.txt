@@ -1,0 +1,7 @@
+# Requirements for post-generation hook
+# These are optional - the hook will work with fallbacks if not installed
+# Recommended: pip install tomlkit (for best TOML handling)
+
+tomlkit>=0.12.0  # Best option - preserves formatting
+# Alternative: tomli (read-only) or tomllib (Python 3.11+)
+

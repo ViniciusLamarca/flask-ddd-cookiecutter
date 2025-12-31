@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "charliermarsh.ruff",
+        "ms-python.mypy-type-checker",
+        "bradlc.vscode-tailwindcss",
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode"
+    ]
+}
+

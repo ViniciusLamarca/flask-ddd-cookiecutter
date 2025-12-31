@@ -1,0 +1,39 @@
+[default]
+debug = false
+testing = false
+secret_key = "change-me-in-production"
+# SQL Server connection string format: mssql+pyodbc://username:password@server:port/database?driver=ODBC+Driver+17+for+SQL+Server
+database_url = "mssql+pyodbc://sa:YourPassword@localhost:1433/YourDatabase?driver=ODBC+Driver+17+for+SQL+Server"
+
+[development]
+debug = true
+database_url = "@env DATABASE_URL"
+
+[testing]
+testing = true
+# For testing, you can use SQLite in-memory or a test SQL Server database
+database_url = "mssql+pyodbc://sa:YourPassword@localhost:1433/TestDatabase?driver=ODBC+Driver+17+for+SQL+Server"
+
+[production]
+debug = false
+database_url = "@env DATABASE_URL"
+
+{% if cookiecutter.use_redis == "y" %}
+[redis]
+host = "@env REDIS_HOST"
+port = "@int @env REDIS_PORT"
+password = "@env REDIS_PASSWORD"
+db = 0
+decode_responses = true
+{% endif %}
+
+{% if cookiecutter.use_websocket == "y" %}
+[socketio]
+cors_allowed_origins = "*"
+async_mode = "eventlet"
+logger = false
+engineio_logger = false
+ping_timeout = 60
+ping_interval = 25
+{% endif %}
+

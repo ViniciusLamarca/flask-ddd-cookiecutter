@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Client Example</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        #messages {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            background: white;
+            border-radius: 3px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+        button {
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+        .connected {
+            background: #d4edda;
+            color: #155724;
+        }
+        .disconnected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Client Example</h1>
+    
+    <div id="status" class="status disconnected">Disconnected</div>
+    
+    <div id="messages"></div>
+    
+    <div>
+        <input type="text" id="messageInput" placeholder="Enter message..." />
+        <button onclick="sendMessage()">Send Message</button>
+        <button onclick="sendJSON()">Send JSON</button>
+        <button onclick="sendCustomEvent()">Send Custom Event</button>
+        <button onclick="disconnect()">Disconnect</button>
+    </div>
+
+    <script>
+        // Connect to WebSocket server
+        const socket = io('http://localhost:5000');
+        
+        const statusDiv = document.getElementById('status');
+        const messagesDiv = document.getElementById('messages');
+        
+        function addMessage(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<strong>[${type}]</strong> ${JSON.stringify(message, null, 2)}`;
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        // Connection events
+        socket.on('connect', () => {
+            statusDiv.className = 'status connected';
+            statusDiv.textContent = 'Connected';
+            addMessage('Connected to server', 'success');
+        });
+        
+        socket.on('disconnect', () => {
+            statusDiv.className = 'status disconnected';
+            statusDiv.textContent = 'Disconnected';
+            addMessage('Disconnected from server', 'warning');
+        });
+        
+        socket.on('connected', (data) => {
+            addMessage(data, 'server');
+        });
+        
+        socket.on('message', (data) => {
+            addMessage(data, 'message');
+        });
+        
+        socket.on('json', (data) => {
+            addMessage(data, 'json');
+        });
+        
+        socket.on('custom_response', (data) => {
+            addMessage(data, 'custom');
+        });
+        
+        socket.on('pong', (data) => {
+            addMessage(data, 'pong');
+        });
+        
+        // Send functions
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            if (input.value) {
+                socket.emit('message', { text: input.value });
+                addMessage({ sent: input.value }, 'sent');
+                input.value = '';
+            }
+        }
+        
+        function sendJSON() {
+            const input = document.getElementById('messageInput');
+            if (input.value) {
+                socket.emit('json', { data: input.value, timestamp: new Date().toISOString() });
+                addMessage({ sent: input.value }, 'sent');
+                input.value = '';
+            }
+        }
+        
+        function sendCustomEvent() {
+            const input = document.getElementById('messageInput');
+            if (input.value) {
+                socket.emit('custom_event', { custom_data: input.value });
+                addMessage({ sent: input.value }, 'sent');
+                input.value = '';
+            }
+        }
+        
+        function disconnect() {
+            socket.disconnect();
+        }
+        
+        // Ping test
+        setInterval(() => {
+            socket.emit('ping');
+        }, 30000);
+    </script>
+</body>
+</html>
+

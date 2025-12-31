@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo ao {{ cookiecutter.project_name }}</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <!-- Custom Welcome CSS (opcional - pode ser removido se usar apenas Tailwind) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/welcome.css') }}">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center p-5">
+    <div class="container bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden">
+        <div class="header bg-gradient-to-r from-purple-500 to-purple-700 text-white p-10 text-center">
+            <h1 class="text-4xl font-bold mb-2">🎉 Bem-vindo!</h1>
+            <p class="text-xl opacity-90">{{ cookiecutter.project_name }}</p>
+            <p class="subtitle text-sm mt-2 opacity-80">{{ cookiecutter.project_description }}</p>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Informações do Projeto</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <strong>Nome</strong>
+                        <span>{{ cookiecutter.project_name }}</span>
+                    </div>
+                    <div class="info-card">
+                        <strong>Slug</strong>
+                        <span>{{ cookiecutter.project_slug }}</span>
+                    </div>
+                    <div class="info-card">
+                        <strong>Autor</strong>
+                        <span>{{ cookiecutter.author_name }}</span>
+                    </div>
+                    <div class="info-card">
+                        <strong>Python</strong>
+                        <span>{{ cookiecutter.python_version }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Funcionalidades Habilitadas</h2>
+                <div class="features">
+                    <div class="feature enabled">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <strong>Flask + DDD + Clean Architecture</strong>
+                            <p>Estrutura completa implementada</p>
+                        </div>
+                    </div>
+                    <div class="feature enabled">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <strong>SQL Server</strong>
+                            <p>ORM com SQLAlchemy + Alembic</p>
+                        </div>
+                    </div>
+                    {% if cookiecutter.use_redis == "y" %}
+                    <div class="feature enabled">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <strong>Redis</strong>
+                            <p>Cache distribuído habilitado</p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="feature disabled">
+                        <span class="feature-icon">✗</span>
+                        <div>
+                            <strong>Redis</strong>
+                            <p>Não habilitado</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if cookiecutter.use_websocket == "y" %}
+                    <div class="feature enabled">
+                        <span class="feature-icon">✓</span>
+                        <div>
+                            <strong>WebSocket</strong>
+                            <p>Flask-SocketIO habilitado</p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="feature disabled">
+                        <span class="feature-icon">✗</span>
+                        <div>
+                            <strong>WebSocket</strong>
+                            <p>Não habilitado</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Próximos Passos</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Instalar dependências</h3>
+                            <p>Execute <code>poetry install</code> para instalar todas as dependências do projeto.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Configurar variáveis de ambiente</h3>
+                            <p>Copie <code>env.example</code> para <code>.env</code> e configure suas variáveis, especialmente a <code>DATABASE_URL</code> do SQL Server.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Executar migrations</h3>
+                            <p>Execute <code>poetry run flask cli migrate</code> para criar as tabelas no banco de dados.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Iniciar o servidor</h3>
+                            <p>Execute <code>poetry run flask run</code> para iniciar o servidor de desenvolvimento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Comandos Úteis</h2>
+                <div class="commands bg-gray-800 text-gray-100 p-5 rounded-lg font-mono mb-5">
+                    <h3 class="text-white mb-4 text-lg">CLI - Sistema Artisan-like</h3>
+                    <template x-for="(cmd, index) in [
+                        'poetry run flask cli migrate',
+                        'poetry run flask cli migrate:create \"description\"',
+                        'poetry run flask cli seed',
+                        'poetry run flask cli create:domain users',
+                        'poetry run flask cli create:use-case create-user --domain users',
+                        'poetry run flask cli create:entity user --domain users',
+                        'poetry run flask cli create:repository user --domain users',
+                        'poetry run flask cli create:model user',
+                        'poetry run flask cli create:controller users --version v1'
+                    ]" :key="index">
+                        <div class="command mb-2 pl-5 relative cursor-pointer hover:bg-gray-700 transition-colors rounded px-2 py-1" 
+                             x-data="{ copied: false }"
+                             @click="navigator.clipboard.writeText(cmd).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
+                             :class="copied ? 'bg-green-600' : ''">
+                            <span x-show="!copied" x-text="cmd"></span>
+                            <span x-show="copied" class="text-green-300">✓ Copiado!</span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Estrutura do Projeto</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Domain Layer</h3>
+                            <p>Lógica de negócio pura: <code>app/domain/</code></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Application Layer</h3>
+                            <p>Casos de uso e orquestração: <code>app/application/</code></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Infrastructure Layer</h3>
+                            <p>Implementações técnicas: <code>app/infrastructure/</code></p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-content">
+                            <h3>Presentation Layer</h3>
+                            <p>API, CLI e interfaces: <code>app/presentation/</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Projeto gerado com sucesso! 🚀</strong></p>
+            <p>Consulte o <a href="/api/v1/health">endpoint de health</a> para verificar se tudo está funcionando.</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                Desenvolvido com ❤️ usando Flask, DDD e Clean Architecture
+            </p>
+        </div>
+    </div>
+    <!-- Alpine.js -->
+    <script defer src="{{ url_for('static', filename='js/alpine.js') }}"></script>
+    <!-- Custom Welcome JavaScript -->
+    <script src="{{ url_for('static', filename='welcome/welcome.js') }}"></script>
+</body>
+</html>
+

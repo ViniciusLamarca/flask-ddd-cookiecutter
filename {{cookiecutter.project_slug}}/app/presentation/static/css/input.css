@@ -1,0 +1,47 @@
+/**
+ * Tailwind CSS Input File
+ * 
+ * Este arquivo é o ponto de entrada para o Tailwind CSS.
+ * Adicione suas customizações aqui ou importe outros arquivos CSS.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Custom Components
+ * 
+ * Adicione componentes customizados usando @apply ou CSS puro
+ */
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary text-white px-4 py-2 rounded-lg font-semibold hover:bg-primary-dark transition-colors;
+    }
+    
+    .card {
+        @apply bg-white rounded-lg shadow-md p-6;
+    }
+    
+    .badge-success {
+        @apply inline-block px-2 py-1 text-xs font-semibold rounded bg-green-100 text-green-800;
+    }
+    
+    .badge-danger {
+        @apply inline-block px-2 py-1 text-xs font-semibold rounded bg-red-100 text-red-800;
+    }
+}
+
+/**
+ * Custom Utilities
+ * 
+ * Adicione utilitários customizados aqui
+ */
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+

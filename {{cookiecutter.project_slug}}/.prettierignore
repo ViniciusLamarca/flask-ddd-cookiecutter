@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Generated files
+app/presentation/static/css/output.css
+
+# Python
+*.py
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Other
+*.log
+.env
+.venv
+venv/
+
