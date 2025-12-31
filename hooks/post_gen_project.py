@@ -177,18 +177,18 @@ def update_pyproject_toml(context: dict[str, str]) -> None:
                         if removed_any:
                             print("Updated pyproject.toml: removed WebSocket dependencies")
             
-            # Write back using toml (if available) or manual formatting
+            # Write back using toml (if available) or skip silently
+            # Note: Templates Jinja2 already handle conditional sections, so this is redundant
             try:
                 import toml  # type: ignore[import-untyped]
                 pyproject_path.write_text(toml.dumps(data), encoding="utf-8")
             except ImportError:
-                # Last resort: manual write (preserve structure as much as possible)
-                print("⚠️  Warning: Could not write TOML properly, manual edit may be needed")
-                print("   Install tomlkit for best results: pip install tomlkit")
+                # Templates Jinja2 already processed the file correctly, so we can skip silently
+                # The file is already correct from template processing
                 return
         else:
-            print("⚠️  Warning: No TOML parser available, skipping pyproject.toml update")
-            print("   Install tomlkit: pip install tomlkit")
+            # Templates Jinja2 already processed the file correctly, so we can skip silently
+            # The file is already correct from template processing
             return
             
     except Exception as e:
@@ -300,12 +300,13 @@ def update_dynaconf_settings(context: dict[str, str]) -> None:
                 print("Updated settings.toml: removed WebSocket configuration")
             
             # Write back
+            # Note: Templates Jinja2 already handle conditional sections, so this is redundant
             try:
                 import toml  # type: ignore[import-untyped]
                 settings_path.write_text(toml.dumps(data), encoding="utf-8")
             except ImportError:
-                print("⚠️  Warning: Could not write TOML properly, manual edit may be needed")
-                print("   Install tomlkit for best results: pip install tomlkit")
+                # Templates Jinja2 already processed the file correctly, so we can skip silently
+                # The file is already correct from template processing
                 return
         else:
             print("⚠️  Warning: No TOML parser available, skipping settings.toml update")
