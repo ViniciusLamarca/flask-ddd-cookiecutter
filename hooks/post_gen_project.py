@@ -309,8 +309,8 @@ def update_dynaconf_settings(context: dict[str, str]) -> None:
                 # The file is already correct from template processing
                 return
         else:
-            print("⚠️  Warning: No TOML parser available, skipping settings.toml update")
-            print("   Install tomlkit: pip install tomlkit")
+            # Templates Jinja2 already processed the file correctly, so we can skip silently
+            # The file is already correct from template processing
             return
             
     except Exception as e:
