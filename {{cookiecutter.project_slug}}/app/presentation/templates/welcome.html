@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo ao {{ cookiecutter.project_name }}</title>
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='css/output.css') {{ '}}' }}">
     <!-- Custom Welcome CSS (opcional - pode ser removido se usar apenas Tailwind) -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='welcome/welcome.css') }}">
+    <link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='welcome/welcome.css') {{ '}}' }}">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center p-5">
     <div class="container bg-white rounded-3xl shadow-2xl max-w-4xl w-full overflow-hidden">
@@ -194,9 +194,9 @@
         </div>
     </div>
     <!-- Alpine.js -->
-    <script defer src="{{ url_for('static', filename='js/alpine.js') }}"></script>
+    <script defer src="{{ '{{' }} url_for('static', filename='js/alpine.js') {{ '}}' }}"></script>
     <!-- Custom Welcome JavaScript -->
-    <script src="{{ url_for('static', filename='welcome/welcome.js') }}"></script>
+    <script src="{{ '{{' }} url_for('static', filename='welcome/welcome.js') {{ '}}' }}"></script>
 </body>
 </html>
 

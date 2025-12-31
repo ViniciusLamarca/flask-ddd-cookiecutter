@@ -69,8 +69,8 @@ Você pode adicionar mais funcionalidades conforme necessário.
 No arquivo `welcome.html`, os arquivos são referenciados assim:
 
 ```html
-<link rel="stylesheet" href="{{ url_for('static', filename='welcome/welcome.css') }}">
-<script src="{{ url_for('static', filename='welcome/welcome.js') }}"></script>
+<link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='welcome/welcome.css') {{ '}}' }}">
+<script src="{{ '{{' }} url_for('static', filename='welcome/welcome.js') {{ '}}' }}"></script>
 ```
 
 ## Boas Práticas

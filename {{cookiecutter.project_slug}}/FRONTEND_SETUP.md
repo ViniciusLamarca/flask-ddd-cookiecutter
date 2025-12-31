@@ -112,7 +112,7 @@ Edite `app/presentation/static/css/input.css` para adicionar estilos customizado
 <div x-data="{ count: 0 }">
     <button @click="count++">Clicou <span x-text="count"></span> vezes</button>
 </div>
-<script defer src="{{ url_for('static', filename='js/alpine.js') }}"></script>
+<script defer src="{{ '{{' }} url_for('static', filename='js/alpine.js') {{ '}}' }}"></script>
 ```
 
 ## 📝 Notas Importantes

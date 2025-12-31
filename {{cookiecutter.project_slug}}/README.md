@@ -152,8 +152,8 @@ app/presentation/
 2. **Adicionar estilos customizados**: Crie um arquivo adicional e adicione no template:
 
 ```html
-<link rel="stylesheet" href="{{ url_for('static', filename='welcome/welcome.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='welcome/custom.css') }}">
+<link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='welcome/welcome.css') {{ '}}' }}">
+<link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='welcome/custom.css') {{ '}}' }}">
 ```
 
 3. **Ver exemplos**: Consulte `app/presentation/static/welcome/README.md` para documentação completa.
@@ -258,7 +258,7 @@ Alpine.js permite adicionar interatividade sem escrever JavaScript separado:
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="stylesheet" href="{{ '{{' }} url_for('static', filename='css/output.css') {{ '}}' }}">
 </head>
 <body>
     <div x-data="{ count: 0 }" class="p-8">
@@ -266,7 +266,7 @@ Alpine.js permite adicionar interatividade sem escrever JavaScript separado:
             Clicou <span x-text="count"></span> vezes
         </button>
     </div>
-    <script defer src="{{ url_for('static', filename='js/alpine.js') }}"></script>
+    <script defer src="{{ '{{' }} url_for('static', filename='js/alpine.js') {{ '}}' }}"></script>
 </body>
 </html>
 ```
