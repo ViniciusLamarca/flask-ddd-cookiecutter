@@ -364,7 +364,7 @@ class {name.title().replace("_", "")}(db.Model):
     
     def __repr__(self) -> str:
         """String representation."""
-        return f"<{name.title().replace("_", "")}(id={{self.id}})>"
+        return f"<{name.title().replace("_", "")}(id={{ '{{' }}self.id{{ '}}' }})>"
 '''
     
     model_file.write_text(template)
@@ -406,7 +406,7 @@ def index() -> dict:
     """
     logger.info("Listing {name}")
     # TODO: Implement list logic
-    return jsonify({{"data": []}})
+    return jsonify({{ '{{' }}"data": []{{ '}}' }})
 
 
 @{name}_bp.route("/<int:id>", methods=["GET"])
@@ -422,7 +422,7 @@ def show(id: int) -> dict:
     """
     logger.info("Showing {name}", id=id)
     # TODO: Implement show logic
-    return jsonify({{"data": {{"id": id}}}})
+    return jsonify({{ '{{' }}"data": {{ '{{' }}"id": id{{ '}}' }}{{ '}}' }})
 
 
 @{name}_bp.route("", methods=["POST"])
@@ -435,7 +435,7 @@ def create() -> dict:
     """
     logger.info("Creating {name}", data=request.json)
     # TODO: Implement create logic
-    return jsonify({{"data": request.json}}), 201
+    return jsonify({{ '{{' }}"data": request.json{{ '}}' }}), 201
 
 
 @{name}_bp.route("/<int:id>", methods=["PUT"])
@@ -451,7 +451,7 @@ def update(id: int) -> dict:
     """
     logger.info("Updating {name}", id=id, data=request.json)
     # TODO: Implement update logic
-    return jsonify({{"data": {{"id": id, **request.json}}}})
+    return jsonify({{ '{{' }}"data": {{ '{{' }}"id": id, **request.json{{ '}}' }}{{ '}}' }})
 
 
 @{name}_bp.route("/<int:id>", methods=["DELETE"])
@@ -467,7 +467,7 @@ def delete(id: int) -> dict:
     """
     logger.info("Deleting {name}", id=id)
     # TODO: Implement delete logic
-    return jsonify({{}}), 204
+    return jsonify({{ '{{' }}{{ '}}' }}), 204
 '''
     
     controller_file.write_text(template)
