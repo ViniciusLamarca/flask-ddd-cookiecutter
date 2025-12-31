@@ -28,11 +28,8 @@ except ImportError:
 
 def remove_redis_files(context: dict[str, str]) -> None:
     """Remove Redis-related files if Redis is not being used."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
-    
-    if not project_dir.exists():
-        print(f"⚠️  Warning: Project directory {project_dir} does not exist")
-        return
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     
     redis_files = [
         project_dir / "app" / "infrastructure" / "redis",
@@ -56,11 +53,8 @@ def remove_redis_files(context: dict[str, str]) -> None:
 
 def remove_websocket_files(context: dict[str, str]) -> None:
     """Remove WebSocket-related files if WebSocket is not being used."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
-    
-    if not project_dir.exists():
-        print(f"⚠️  Warning: Project directory {project_dir} does not exist")
-        return
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     
     websocket_files = [
         project_dir / "app" / "infrastructure" / "websocket",
@@ -114,7 +108,8 @@ def validate_toml_file(file_path: Path) -> bool:
 
 def update_pyproject_toml(context: dict[str, str]) -> None:
     """Update pyproject.toml to remove Redis and WebSocket dependencies if not used."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     pyproject_path = project_dir / "pyproject.toml"
     
     # Validate file before processing
@@ -204,7 +199,8 @@ def update_pyproject_toml(context: dict[str, str]) -> None:
 
 def update_env_example(context: dict[str, str]) -> None:
     """Update env.example to remove Redis variables if not used."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     env_example_path = project_dir / "env.example"
     
     if not env_example_path.exists():
@@ -253,7 +249,8 @@ def update_env_example(context: dict[str, str]) -> None:
 
 def update_dynaconf_settings(context: dict[str, str]) -> None:
     """Update Dynaconf settings to remove Redis and WebSocket config if not used."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     settings_path = project_dir / "app" / "infrastructure" / "config" / "settings.toml"
     
     # Validate file before processing
@@ -334,7 +331,8 @@ def update_app_init(context):
 
 def copy_env_example() -> None:
     """Copy env.example to .env if it doesn't exist."""
-    project_dir = Path("{{ cookiecutter.project_slug }}")
+    # In post_gen hooks, current directory is already the project directory
+    project_dir = Path(".")
     env_example = project_dir / "env.example"
     env_file = project_dir / ".env"
     
@@ -396,7 +394,8 @@ def main():
     
     # Try to setup frontend (optional - won't fail if Node.js not available)
     try:
-        project_dir = Path("{{ cookiecutter.project_slug }}")
+        # In post_gen hooks, current directory is already the project directory
+        project_dir = Path(".")
         setup_script = Path(__file__).parent / "setup_frontend.py"
         
         if not setup_script.exists():
@@ -436,10 +435,13 @@ def main():
         print(f"⚠️  Frontend setup skipped (unexpected error): {type(e).__name__}: {e}")
         print("   See FRONTEND_SETUP.md for manual setup instructions")
     
+    # Get project directory name from current directory
+    project_dir_name = Path(".").resolve().name
+    
     print("\n✅ Project generated successfully!")
-    print(f"📁 Project directory: {{ cookiecutter.project_slug }}/")
+    print(f"📁 Project directory: {project_dir_name}/")
     print("\nNext steps:")
-    print("1. cd {{ cookiecutter.project_slug }}")
+    print(f"1. cd {project_dir_name}")
     print("2. poetry install")
     print("3. npm install (para instalar Tailwind CSS e Alpine.js)")
     print("4. npm run build (para compilar assets frontend)")
